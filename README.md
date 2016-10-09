@@ -1,7 +1,5 @@
-# hello-world
+# My github website
 
-Hello the world,
+This page will present the projects I have in github.
 
-I'm Thaddeus. I like Linux and libre (free as in freedom) software.
-
-This account may contents C, C++, or Java code. And may be javascript, but no for the moment.
+You are free to copy or fork this site for your own usage.

@@ -100,17 +100,12 @@ th, td {
 
 
 
-
-
-
-
-
-
+/* tabs configuration */
 
 .tabs {
   position: relative;
   /* set height to be even for all tab groups */
-  min-height: 180px;
+  min-height: 240px;
   display: block;
   margin: 1em auto 0;
   width: 95%;

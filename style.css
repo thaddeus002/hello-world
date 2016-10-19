@@ -155,3 +155,35 @@ th, td {
   z-index: 1;
   opacity: 1;
 }
+
+/* For the search engine */
+
+div#warning {
+  display: block;
+  background:#e0e020;
+  border: 1px solid #802020;
+  text-align:center;
+  color:red;
+  margin:20px;
+}
+
+div#speudoRequest {
+  max-height:50px;
+}
+
+div#speudoValid {
+  display: block;
+  background-color:#d0d0d0;
+  padding:5px;
+  max-width:80px;
+  text-align:left;
+}
+
+#result {
+  display: block;
+  background-color:#e8e8e8;
+  padding:5px;
+  min-height:200px;
+  width:95%;
+  white-space: pre-wrap;
+}

@@ -8,7 +8,6 @@
 var input = document.getElementById("speudo");
 var bouton = document.getElementById("speudoValid");
 var panel = document.getElementById("result");
-var speudo;
 var baseUrl = "https://api.github.com/users";
 
 
@@ -47,8 +46,8 @@ function cherche() {
   var url;
   var req = new XMLHttpRequest();
   
-  speudo = input.value;
-  if(speudo == null) {
+  var speudo = input.value;
+  if(!speudo) {
     speudo = "thaddeus002";
   }
   url = baseUrl + "/" + speudo;

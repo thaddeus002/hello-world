@@ -17,16 +17,19 @@ var baseUrl = "https://api.github.com/users";
  */
 function afficheUser(user) {
   var message = "";
-  message += "User's login : " + user.login + "\n";
-  message += "name : " + user.name + "\n";
-  message += "company : " + user.company + "\n";
-  message += "blog : " + user.blog + "\n";
-  message += "email : " + user.email + "\n";
-  message += "bio : " + user.bio + "\n";
-  message += "public_repos : " + user.public_repos + "\n";
-  message += "followers : " + user.followers + "\n";
-  message += "following : " + user.following + "\n";
-  message += "created_at : " + user.created_at + "\n";
+  message += "------------------------------------------------\n";
+  message += "login        : " + user.login + "\n";
+  message += "joined on    : " + user.created_at + "\n";
+  message += "------------------------------------------------\n";
+  message += "name         : " + user.name + "\n";
+  message += "company      : " + user.company + "\n";
+  message += "blog         : " + user.blog + "\n";
+  message += "email        : " + user.email + "\n";
+  message += "bio          : " + user.bio + "\n";
+  message += "-----------------------------------------------\n";
+  message += "public repos : " + user.public_repos + "\n";
+  message += "followers    : " + user.followers + "\n";
+  message += "following    : " + user.following + " \n";
   panel.textContent = message;
 }
 

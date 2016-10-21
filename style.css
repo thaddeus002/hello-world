@@ -178,9 +178,27 @@ div#speudoRequest {
   text-align:left;
 }
 
-#result {
+.panel {
   display: block;
   background-color:#e8e8e8;
+  width:95%;
+}
+
+#avatar{
+  float:right;
+  padding:5px;
+}
+
+.hidenavatar{
+  width:1px;
+}
+
+.imgavatar {
+  width:100px;
+}
+
+
+#result {
   padding:5px;
   min-height:200px;
   width:95%;

@@ -9,7 +9,7 @@ var input = document.getElementById("speudo");
 var bouton = document.getElementById("speudoValid");
 var panel = document.getElementById("result");
 var baseUrl = "https://api.github.com/users";
-
+var avatar = document.getElementById("avatar");
 
 /**
  * Show a user data.
@@ -37,7 +37,6 @@ function afficheUser(user) {
   message += "------------------------------------------------\n";
   
   for(pi in pis) {
-    console.log(pi, pis[pi]);
     if(user[pis[pi]]) {
       var prop = pis[pi];
       while(prop.length < 13) { prop += " "; }
@@ -45,12 +44,7 @@ function afficheUser(user) {
       pic++;
     }
   }
-  /*message += "name         : " + user.name + "\n";
-  message += "company      : " + user.company + "\n";
-  message += "location     : " + user.location + "\n";
-  message += "blog         : " + user.blog + "\n";
-  message += "email        : " + user.email + "\n";
-  message += "bio          : " + user.bio + "\n";*/
+
   if(pic) {
     message += "-----------------------------------------------\n";
   }
@@ -60,6 +54,12 @@ function afficheUser(user) {
   message += "following    : " + user.following + " \n";
   
   panel.appendChild(document.createTextNode(message));
+  
+  avatar.src=user.avatar_url;
+  avatar.onload = function() {
+    console.log("Image chargée");
+    this.className = "imgavatar";
+  }
 }
 
 /**
@@ -77,8 +77,10 @@ function showInPanel(message) {
 function cherche() {
   var url;
   var req = new XMLHttpRequest();
-  
   var speudo = input.value;
+  
+  avatar.className = "hidenavatar";
+  
   if(!speudo) {
     speudo = "thaddeus002";
   }

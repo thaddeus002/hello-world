@@ -30,13 +30,14 @@ function afficheUser(user) {
   message += "public repos : " + user.public_repos + "\n";
   message += "followers    : " + user.followers + "\n";
   message += "following    : " + user.following + " \n";
+
   panel.textContent = message;
 }
 
 /**
  * Show an error message to user
  */
-function afficheErreur(message) {
+function showInPanel(message) {
   panel.textContent = message;
 }
 
@@ -59,15 +60,17 @@ function cherche() {
   req.onload = function() {
     if(this.status<200 || this.status>=300) {
       var errMessage = JSON.parse(this.responseText).message;
-      afficheErreur("Server send error "+this.status+ " : " + errMessage);
+      showInPanel("Server send error "+this.status+ " : " + errMessage);
       return;
     }
+    showInPanel("Parsing server's response...");
     var data = JSON.parse(this.responseText);
     afficheUser(data);
   };
+  
+  showInPanel("Sending request...");
   req.send();
 }
-
 
 bouton.addEventListener("click", cherche);
 

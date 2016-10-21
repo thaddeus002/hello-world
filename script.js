@@ -33,6 +33,7 @@ function afficheUser(user) {
   message += "------------------------------------------------\n";
   message += "name         : " + user.name + "\n";
   message += "company      : " + user.company + "\n";
+  message += "location     : " + user.location + "\n";
   message += "blog         : " + user.blog + "\n";
   message += "email        : " + user.email + "\n";
   message += "bio          : " + user.bio + "\n";

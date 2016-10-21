@@ -17,8 +17,18 @@ var baseUrl = "https://api.github.com/users";
  */
 function afficheUser(user) {
   var message = "";
+  var link = document.createElement("a");
+  
   message += "------------------------------------------------\n";
-  message += "login        : " + user.login + "\n";
+  message += "login        : ";
+  
+  panel.textContent = message;
+  
+  link.href = user.html_url;
+  link.textContent = user.login;
+  panel.appendChild(link);
+  
+  message = "\n";
   message += "joined on    : " + user.created_at + "\n";
   message += "------------------------------------------------\n";
   message += "name         : " + user.name + "\n";
@@ -30,8 +40,8 @@ function afficheUser(user) {
   message += "public repos : " + user.public_repos + "\n";
   message += "followers    : " + user.followers + "\n";
   message += "following    : " + user.following + " \n";
-
-  panel.textContent = message;
+  
+  panel.appendChild(document.createTextNode(message));
 }
 
 /**

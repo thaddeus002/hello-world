@@ -37,14 +37,20 @@ function afficheUser(user) {
   message += "------------------------------------------------\n";
   
   for(pi in pis) {
+    console.log(pi, pis[pi]);
     if(user[pis[pi]]) {
       var prop = pis[pi];
       while(prop.length < 13) { prop += " "; }
-      message += prop + ":" + user[pis[pi]] + "\n";
+      message += prop + ": " + user[pis[pi]] + "\n";
       pic++;
     }
   }
-
+  /*message += "name         : " + user.name + "\n";
+  message += "company      : " + user.company + "\n";
+  message += "location     : " + user.location + "\n";
+  message += "blog         : " + user.blog + "\n";
+  message += "email        : " + user.email + "\n";
+  message += "bio          : " + user.bio + "\n";*/
   if(pic) {
     message += "-----------------------------------------------\n";
   }

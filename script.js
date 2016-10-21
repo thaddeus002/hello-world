@@ -18,6 +18,10 @@ var baseUrl = "https://api.github.com/users";
 function afficheUser(user) {
   var message = "";
   var link = document.createElement("a");
+  var pic = 0; // personal infos count
+  // personal infos
+  var pis = [ "name", "company", "location", "blog", "email", "bio" ]; 
+  var pi;
   
   message += "------------------------------------------------\n";
   message += "login        : ";
@@ -31,13 +35,20 @@ function afficheUser(user) {
   message = "\n";
   message += "joined on    : " + user.created_at + "\n";
   message += "------------------------------------------------\n";
-  message += "name         : " + user.name + "\n";
-  message += "company      : " + user.company + "\n";
-  message += "location     : " + user.location + "\n";
-  message += "blog         : " + user.blog + "\n";
-  message += "email        : " + user.email + "\n";
-  message += "bio          : " + user.bio + "\n";
-  message += "-----------------------------------------------\n";
+  
+  for(pi in pis) {
+    if(user[pis[pi]]) {
+      var prop = pis[pi];
+      while(prop.length < 13) { prop += " "; }
+      message += prop + ":" + user[pis[pi]] + "\n";
+      pic++;
+    }
+  }
+
+  if(pic) {
+    message += "-----------------------------------------------\n";
+  }
+  
   message += "public repos : " + user.public_repos + "\n";
   message += "followers    : " + user.followers + "\n";
   message += "following    : " + user.following + " \n";

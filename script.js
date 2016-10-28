@@ -10,6 +10,7 @@ var bouton = document.getElementById("speudoValid");
 var panel = document.getElementById("result");
 var baseUrl = "https://api.github.com/users";
 var avatar = document.getElementById("avatar");
+//var table = document.getElementById("corps");
 
 /**
  * Show a user data.
@@ -20,22 +21,22 @@ function afficheUser(user) {
   var link = document.createElement("a");
   var pic = 0; // personal infos count
   // personal infos
-  var pis = [ "name", "company", "location", "blog", "email", "bio" ]; 
+  var pis = [ "name", "company", "location", "blog", "email", "bio" ];
   var pi;
-  
+
   message += "------------------------------------------------\n";
   message += "login        : ";
-  
+
   panel.textContent = message;
-  
+
   link.href = user.html_url;
   link.textContent = user.login;
   panel.appendChild(link);
-  
+
   message = "\n";
   message += "joined on    : " + user.created_at + "\n";
   message += "------------------------------------------------\n";
-  
+
   for(pi in pis) {
     if(user[pis[pi]]) {
       var prop = pis[pi];
@@ -48,13 +49,13 @@ function afficheUser(user) {
   if(pic) {
     message += "-----------------------------------------------\n";
   }
-  
+
   message += "public repos : " + user.public_repos + "\n";
   message += "followers    : " + user.followers + "\n";
-  message += "following    : " + user.following + " \n";
-  
+  message += "following    : " + user.following + "\n";
+
   panel.appendChild(document.createTextNode(message));
-  
+
   avatar.src=user.avatar_url;
   avatar.onload = function() {
     console.log("Image chargée");
@@ -70,6 +71,106 @@ function showInPanel(message) {
 }
 
 
+/**
+ * Add a td or other element to the given parent.
+ */
+function addCell(parent, content, type) {
+
+  var elt;
+
+  if(type == null) {
+    elt = document.createElement("td");
+  } else {
+    elt = document.createElement(type);
+  }
+
+  elt.textContent = content;
+  parent.appendChild(elt);
+}
+
+
+/**
+ * Add a line to a table.
+ */
+function addLine(table, a, b, c){
+  var tr = document.createElement("tr");
+
+  addCell(tr, a);
+  addCell(tr, b);
+  addCell(tr, c);
+
+  table.appendChild(tr);
+}
+
+/**
+ * Create a new HTML element to show the repos in a table.
+ * And add it to the showing panel.
+ * \return the tbody element of the newly created element
+ */
+function createTable() {
+  var table = document.createElement("table");
+  var thead, tr, tbody;
+
+  table.className="pretable";
+  thead = document.createElement("thead");
+  tr = document.createElement("tr");
+  table.appendChild(thead);
+  thead.appendChild(tr);
+  addCell(tr, "Project", "th");
+  addCell(tr, "Language", "th");
+  addCell(tr, "Number of stars", "th");
+  tbody = document.createElement("tbody");
+  table.appendChild(tbody);
+
+  panel.appendChild(document.createTextNode("------------------------------------------------\n"));
+  panel.appendChild(table);
+  return tbody;
+}
+
+
+
+/**
+ * Puts the repos' infos in the table.
+ * \param data array of repos objects
+ */
+function creeTableau(data) {
+
+  var n, N;
+  var repos;
+  var table = createTable();
+
+  for(n=0, N=data.length; n < N; n++) {
+
+    repos = data[n];
+    addLine(table, repos.name, repos.language, repos.stargazers_count);
+  }
+}
+
+
+
+/**
+ * Request for user's repos.
+ */
+function repos(url) {
+
+  var req = new XMLHttpRequest();
+
+  req.open('GET', url);
+  req.onload = function() {
+    if(this.status<200 || this.status>=300) {
+      var errMessage = JSON.parse(this.responseText).message;
+      console.log("Server send error "+this.status+ " : " + errMessage);
+      return;
+    }
+    console.log("Parsing server's response...");
+    var data = JSON.parse(this.responseText);
+    creeTableau(data);
+  };
+
+  console.log("Sending request on repos...");
+  req.send();
+}
+
 
 /**
  * Find a user's speudo on github and show infos.
@@ -78,14 +179,14 @@ function cherche() {
   var url;
   var req = new XMLHttpRequest();
   var speudo = input.value;
-  
+
   avatar.className = "hidenavatar";
-  
+
   if(!speudo) {
     speudo = "thaddeus002";
   }
   url = baseUrl + "/" + speudo;
-  
+
   req.open('GET', url);
   req.onload = function() {
     if(this.status<200 || this.status>=300) {
@@ -96,8 +197,9 @@ function cherche() {
     showInPanel("Parsing server's response...");
     var data = JSON.parse(this.responseText);
     afficheUser(data);
+    repos(data.repos_url);
   };
-  
+
   showInPanel("Sending request...");
   req.send();
 }

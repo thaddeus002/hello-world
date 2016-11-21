@@ -129,7 +129,7 @@ function createTable() {
   // where put the table
   var repos = document.getElementById("repos");
 
-  table.className="pretable";
+  //table.className="pretable";
   thead = document.createElement("thead");
   tr = document.createElement("tr");
   table.appendChild(thead);

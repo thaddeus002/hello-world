@@ -166,11 +166,11 @@ div#warning {
   margin:20px;
 }
 
-div#speudoRequest {
+div#pseudoRequest {
   max-height:50px;
 }
 
-#speudoValid {
+#pseudoValid {
   display: block;
   background-color:#d0d0d0;
   padding:5px;

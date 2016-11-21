@@ -5,8 +5,8 @@
 
 "use strict";
 
-var input = document.getElementById("speudo");
-var bouton = document.getElementById("speudoValid");
+var input = document.getElementById("pseudo");
+var bouton = document.getElementById("pseudoValid");
 var panel = document.getElementById("result");
 var baseUrl = "https://api.github.com/users";
 var avatar = document.getElementById("avatar");
@@ -72,19 +72,19 @@ function showInPanel(message) {
 
 
 /**
- * Find a user's speudo on github and show infos.
+ * Find a user's pseudo on github and show infos.
  */
 function cherche() {
   var url;
   var req = new XMLHttpRequest();
-  var speudo = input.value;
+  var pseudo = input.value;
   
   avatar.className = "hidenavatar";
   
-  if(!speudo) {
-    speudo = "thaddeus002";
+  if(!pseudo) {
+    pseudo = "thaddeus002";
   }
-  url = baseUrl + "/" + speudo;
+  url = baseUrl + "/" + pseudo;
   
   req.open('GET', url);
   req.onload = function() {

@@ -20,22 +20,22 @@ function afficheUser(user) {
   var link = document.createElement("a");
   var pic = 0; // personal infos count
   // personal infos
-  var pis = [ "name", "company", "location", "blog", "email", "bio" ]; 
+  var pis = [ "name", "company", "location", "blog", "email", "bio" ];
   var pi;
-  
+
   message += "------------------------------------------------\n";
   message += "login        : ";
-  
+
   panel.textContent = message;
-  
+
   link.href = user.html_url;
   link.textContent = user.login;
   panel.appendChild(link);
-  
+
   message = "\n";
   message += "joined on    : " + user.created_at + "\n";
   message += "------------------------------------------------\n";
-  
+
   for(pi in pis) {
     if(user[pis[pi]]) {
       var prop = pis[pi];
@@ -48,13 +48,15 @@ function afficheUser(user) {
   if(pic) {
     message += "-----------------------------------------------\n";
   }
-  
+
   message += "public repos : " + user.public_repos + "\n";
   message += "followers    : " + user.followers + "\n";
-  message += "following    : " + user.following + " \n";
-  
+  message += "following    : " + user.following + "\n";
+
+  message += "------------------------------------------------\n";
+
   panel.appendChild(document.createTextNode(message));
-  
+
   avatar.src=user.avatar_url;
   avatar.onload = function() {
     console.log("Image chargée");
@@ -69,6 +71,122 @@ function showInPanel(message) {
   panel.textContent = message;
 }
 
+
+/**
+ * Add a td or other element to the given parent.
+ * \param parent
+ * \param content
+ * \param type the new element type (by default "td")
+ */
+function addCell(parent, content, type) {
+
+  var elt;
+
+  if(type == null) {
+    elt = document.createElement("td");
+  } else {
+    elt = document.createElement(type);
+  }
+
+  elt.textContent = content;
+  parent.appendChild(elt);
+}
+
+
+/**
+ * Add a line to a table.
+ */
+function addLine(table, a, b, c){
+  var tr = document.createElement("tr");
+
+  addCell(tr, a);
+  addCell(tr, b);
+  addCell(tr, c);
+
+  table.appendChild(tr);
+}
+
+
+/**
+ * Remove all the content of a node.
+ */
+function removeChildren(elem) {
+  while(elem.lastChild) {
+    elem.removeChild(elem.lastChild);
+  }
+}
+
+
+/**
+ * Create a new HTML element (empty table) to show the repos.
+ * And add it to the showing panel.
+ * \return the tbody element of the newly created element
+ */
+function createTable() {
+  var table = document.createElement("table");
+  var thead, tr, tbody;
+  // where put the table
+  var repos = document.getElementById("repos");
+
+  //table.className="pretable";
+  thead = document.createElement("thead");
+  tr = document.createElement("tr");
+  table.appendChild(thead);
+  thead.appendChild(tr);
+  addCell(tr, "Project", "th");
+  addCell(tr, "Language", "th");
+  addCell(tr, "Number of stars", "th");
+  tbody = document.createElement("tbody");
+  table.appendChild(tbody);
+
+  removeChildren(repos);
+  repos.appendChild(table);
+  return tbody;
+}
+
+
+
+/**
+ * Puts the repos' infos in the table.
+ * \param data array of repos objects
+ */
+function creeTableau(data) {
+
+  var n, N;
+  var repos;
+  var table = createTable();
+
+  for(n=0, N=data.length; n < N; n++) {
+
+    repos = data[n];
+    addLine(table, repos.name, repos.language, repos.stargazers_count);
+  }
+}
+
+
+
+/**
+ * Request for user's repos.
+ */
+function repos(url) {
+
+  var req = new XMLHttpRequest();
+
+  req.open('GET', url);
+  req.onload = function() {
+    if(this.status<200 || this.status>=300) {
+      var errMessage = JSON.parse(this.responseText).message;
+      console.log("Server send error "+this.status+ " : " + errMessage);
+      return;
+    }
+    console.log("Parsing server's response...");
+    var data = JSON.parse(this.responseText);
+    creeTableau(data);
+  };
+
+  console.log("Sending request on repos...");
+  req.send();
+}
 
 
 /**
@@ -85,7 +203,7 @@ function cherche() {
     pseudo = "thaddeus002";
   }
   url = baseUrl + "/" + pseudo;
-  
+
   req.open('GET', url);
   req.onload = function() {
     if(this.status<200 || this.status>=300) {
@@ -96,8 +214,9 @@ function cherche() {
     showInPanel("Parsing server's response...");
     var data = JSON.parse(this.responseText);
     afficheUser(data);
+    repos(data.repos_url);
   };
-  
+
   showInPanel("Sending request...");
   req.send();
 }

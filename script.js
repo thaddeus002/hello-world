@@ -107,6 +107,17 @@ function addLine(table, a, b, c){
   table.appendChild(tr);
 }
 
+
+/**
+ * Remove all the content of a node.
+ */
+function removeChildren(elem) {
+  while(elem.lastChild) {
+    elem.removeChild(elem.lastChild);
+  }
+}
+
+
 /**
  * Create a new HTML element (empty table) to show the repos.
  * And add it to the showing panel.
@@ -115,6 +126,8 @@ function addLine(table, a, b, c){
 function createTable() {
   var table = document.createElement("table");
   var thead, tr, tbody;
+  // where put the table
+  var repos = document.getElementById("repos");
 
   table.className="pretable";
   thead = document.createElement("thead");
@@ -127,7 +140,8 @@ function createTable() {
   tbody = document.createElement("tbody");
   table.appendChild(tbody);
 
-  panel.appendChild(table);
+  removeChildren(repos);
+  repos.appendChild(table);
   return tbody;
 }
 

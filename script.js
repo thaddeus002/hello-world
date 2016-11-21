@@ -54,6 +54,8 @@ function afficheUser(user) {
   message += "followers    : " + user.followers + "\n";
   message += "following    : " + user.following + "\n";
 
+  message += "------------------------------------------------\n";
+
   panel.appendChild(document.createTextNode(message));
 
   avatar.src=user.avatar_url;
@@ -73,6 +75,9 @@ function showInPanel(message) {
 
 /**
  * Add a td or other element to the given parent.
+ * \param parent
+ * \param content
+ * \param type the new element type (by default "td")
  */
 function addCell(parent, content, type) {
 
@@ -103,7 +108,7 @@ function addLine(table, a, b, c){
 }
 
 /**
- * Create a new HTML element to show the repos in a table.
+ * Create a new HTML element (empty table) to show the repos.
  * And add it to the showing panel.
  * \return the tbody element of the newly created element
  */
@@ -122,7 +127,6 @@ function createTable() {
   tbody = document.createElement("tbody");
   table.appendChild(tbody);
 
-  panel.appendChild(document.createTextNode("------------------------------------------------\n"));
   panel.appendChild(table);
   return tbody;
 }

@@ -133,6 +133,7 @@ th, td {
 }
 
 [type=radio]:checked ~ label {
+  /* z-index needs position */
   position: relative;
   z-index: 2;
   background: wheat;

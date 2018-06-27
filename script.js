@@ -59,7 +59,7 @@ function afficheUser(user) {
 
   avatar.src=user.avatar_url;
   avatar.onload = function() {
-    console.log("Image chargée");
+    console.log("Image loaded");
     this.className = "imgavatar";
   }
 }
@@ -196,9 +196,9 @@ function cherche() {
   var url;
   var req = new XMLHttpRequest();
   var pseudo = input.value;
-  
+
   avatar.className = "hidenavatar";
-  
+
   if(!pseudo) {
     pseudo = "thaddeus002";
   }

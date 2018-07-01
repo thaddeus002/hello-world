@@ -163,7 +163,12 @@ function creeTableau(data) {
   for(n=0, N=data.length; n < N; n++) {
 
     repos = data[n];
-    addLine(table, repos.name, repos.language, repos.stargazers_count, repos.forks_count, repos.description);
+    var isFork = repos.fork;
+    var name = repos.name;
+    if (isFork) {
+      name=name + " (fork)";
+    }
+    addLine(table, name, repos.language, repos.stargazers_count, repos.forks_count, repos.description);
   }
 }
 

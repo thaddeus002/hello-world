@@ -96,12 +96,14 @@ function addCell(parent, content, type) {
 /**
  * Add a line to a table.
  */
-function addLine(table, a, b, c){
+function addLine(table, a, b, c, d, e){
   var tr = document.createElement("tr");
 
   addCell(tr, a);
   addCell(tr, b);
   addCell(tr, c);
+  addCell(tr, d);
+  addCell(tr, e);
 
   table.appendChild(tr);
 }
@@ -136,6 +138,8 @@ function createTable() {
   addCell(tr, "Project", "th");
   addCell(tr, "Language", "th");
   addCell(tr, "Number of stars", "th");
+  addCell(tr, "Number of forks", "th");
+  addCell(tr, "Description", "th");
   tbody = document.createElement("tbody");
   table.appendChild(tbody);
 
@@ -159,7 +163,7 @@ function creeTableau(data) {
   for(n=0, N=data.length; n < N; n++) {
 
     repos = data[n];
-    addLine(table, repos.name, repos.language, repos.stargazers_count);
+    addLine(table, repos.name, repos.language, repos.stargazers_count, repos.forks_count, repos.description);
   }
 }
 

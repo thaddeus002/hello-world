@@ -96,7 +96,7 @@ function addCell(parent, content, type) {
 /**
  * Add a line to a table.
  */
-function addLine(table, a, b, c, d, e){
+function addLine(table, a, b, c, d, e, f){
   var tr = document.createElement("tr");
 
   addCell(tr, a);
@@ -104,6 +104,7 @@ function addLine(table, a, b, c, d, e){
   addCell(tr, c);
   addCell(tr, d);
   addCell(tr, e);
+  addCell(tr, f);
 
   table.appendChild(tr);
 }
@@ -139,6 +140,7 @@ function createTable() {
   addCell(tr, "Language", "th");
   addCell(tr, "Number of stars", "th");
   addCell(tr, "Number of forks", "th");
+  addCell(tr, "Number of opened issues", "th");
   addCell(tr, "Description", "th");
   tbody = document.createElement("tbody");
   table.appendChild(tbody);
@@ -168,7 +170,7 @@ function creeTableau(data) {
     if (isFork) {
       name=name + " (fork)";
     }
-    addLine(table, name, repos.language, repos.stargazers_count, repos.forks_count, repos.description);
+    addLine(table, name, repos.language, repos.stargazers_count, repos.forks_count, repos.open_issues_count, repos.description);
   }
 }
 

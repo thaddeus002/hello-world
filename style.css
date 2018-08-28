@@ -161,14 +161,6 @@ div#pseudoRequest {
   max-height:50px;
 }
 
-#pseudoValid {
-  display: block;
-  background-color:#d0d0d0;
-  padding:5px;
-  max-width:80px;
-  text-align:left;
-}
-
 .panel {
   display: block;
   background-color:#e8e8e8;

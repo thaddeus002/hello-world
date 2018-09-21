@@ -6,7 +6,6 @@
 "use strict";
 
 var input = document.getElementById("pseudo");
-var bouton = document.getElementById("pseudoValid");
 var panel = document.getElementById("result");
 var baseUrl = "https://api.github.com/users";
 var avatar = document.getElementById("avatar");
@@ -231,8 +230,6 @@ function cherche() {
   showInPanel("Sending request...");
   req.send();
 }
-
-bouton.addEventListener("click", cherche);
 
 console.log("page loaded");
 

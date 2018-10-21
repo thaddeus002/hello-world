@@ -14,7 +14,7 @@ var avatar = document.getElementById("avatar");
  * Show a user data.
  * \param user an object representing a user
  */
-function afficheUser(user) {
+function showUser(user) {
   var message = "";
   var link = document.createElement("a");
   var pic = 0; // personal infos count
@@ -155,7 +155,7 @@ function createTable() {
  * Puts the repos' infos in the table.
  * \param data array of repos objects
  */
-function creeTableau(data) {
+function createReposTable(data) {
 
   var n, N;
   var repos;
@@ -191,7 +191,7 @@ function repos(url) {
     }
     console.log("Parsing server's response...");
     var data = JSON.parse(this.responseText);
-    creeTableau(data);
+    createReposTable(data);
   };
 
   console.log("Sending request on repos...");
@@ -202,7 +202,7 @@ function repos(url) {
 /**
  * Find a user's pseudo on github and show infos.
  */
-function cherche() {
+function searchUser() {
   var url;
   var req = new XMLHttpRequest();
   var pseudo = input.value;
@@ -223,7 +223,7 @@ function cherche() {
     }
     showInPanel("Parsing server's response...");
     var data = JSON.parse(this.responseText);
-    afficheUser(data);
+    showUser(data);
     repos(data.repos_url);
   };
 

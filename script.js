@@ -87,7 +87,11 @@ function addCell(parent, content, type) {
     elt = document.createElement(type);
   }
 
-  elt.textContent = content;
+  if(content instanceof HTMLElement) {
+    elt.appendChild(content);
+  } else {
+    elt.textContent = content;
+  }
   parent.appendChild(elt);
 }
 
@@ -108,6 +112,21 @@ function addLine(table, a, b, c, d, e, f){
   table.appendChild(tr);
 }
 
+
+/**
+ * Add a repos in the table.
+ * @param table where show the infos
+ * @param name how it will be shown
+ * @param repos a github's repos objet
+ */
+function showReposInTable(table, name, repos) {
+
+  var aname = document.createElement('a');
+  aname.setAttribute('href', repos.html_url);
+  aname.textContent = name;
+
+  addLine(table, aname, repos.language, repos.stargazers_count, repos.forks_count, repos.open_issues_count, repos.description);
+}
 
 /**
  * Remove all the content of a node.
@@ -169,7 +188,7 @@ function createReposTable(data) {
     if (isFork) {
       name=name + " (fork)";
     }
-    addLine(table, name, repos.language, repos.stargazers_count, repos.forks_count, repos.open_issues_count, repos.description);
+    showReposInTable(table, name, repos);
   }
 }
 
